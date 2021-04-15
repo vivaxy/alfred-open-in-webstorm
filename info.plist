@@ -8,11 +8,11 @@
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
-		<key>4299DEBA-00AB-4738-8D5D-0B06BCAC9B64</key>
+		<key>105E6B03-7713-4836-8436-7921E9DFA195</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>666E227D-70E9-4B75-95B6-4462D823F86C</string>
+				<string>6B52B39A-E134-4AA8-AB99-03DF53B4D897</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -21,11 +21,13 @@
 				<false/>
 			</dict>
 		</array>
-		<key>4FDC360C-F01A-413A-9AB6-2A2201C834EA</key>
+		<key>6B52B39A-E134-4AA8-AB99-03DF53B4D897</key>
+		<array/>
+		<key>B24C2639-501E-4FBF-B5AC-9D87A59EF9B5</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>ADA45187-B87B-442D-810A-722562286252</string>
+				<string>596A21A4-4D7F-4C35-B688-554EE61DE1CC</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -61,7 +63,7 @@ end alfred_script</string>
 			<key>type</key>
 			<string>alfred.workflow.action.applescript</string>
 			<key>uid</key>
-			<string>666E227D-70E9-4B75-95B6-4462D823F86C</string>
+			<string>596A21A4-4D7F-4C35-B688-554EE61DE1CC</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -82,7 +84,26 @@ end alfred_script</string>
 			<key>type</key>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>4299DEBA-00AB-4738-8D5D-0B06BCAC9B64</string>
+			<string>B24C2639-501E-4FBF-B5AC-9D87A59EF9B5</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+  tell application "WebStorm"
+    open q
+  end tell
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>6B52B39A-E134-4AA8-AB99-03DF53B4D897</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -131,56 +152,37 @@ end alfred_script</string>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>4FDC360C-F01A-413A-9AB6-2A2201C834EA</string>
+			<string>105E6B03-7713-4836-8436-7921E9DFA195</string>
 			<key>version</key>
 			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)
-  tell application "WebStorm"
-    open q
-  end tell
-end alfred_script</string>
-				<key>cachescript</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
-			<key>uid</key>
-			<string>ADA45187-B87B-442D-810A-722562286252</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
 	<string>https://github.com/vivaxy/alfred-open-in-webstorm/blob/main/README.md</string>
 	<key>uidata</key>
 	<dict>
-		<key>4299DEBA-00AB-4738-8D5D-0B06BCAC9B64</key>
-		<dict>
-			<key>xpos</key>
-			<integer>165</integer>
-			<key>ypos</key>
-			<integer>145</integer>
-		</dict>
-		<key>4FDC360C-F01A-413A-9AB6-2A2201C834EA</key>
-		<dict>
-			<key>xpos</key>
-			<integer>165</integer>
-			<key>ypos</key>
-			<integer>295</integer>
-		</dict>
-		<key>666E227D-70E9-4B75-95B6-4462D823F86C</key>
+	  <key>B24C2639-501E-4FBF-B5AC-9D87A59EF9B5</key>
+    <dict>
+      <key>xpos</key>
+      <integer>165</integer>
+      <key>ypos</key>
+      <integer>145</integer>
+    </dict>
+		<key>596A21A4-4D7F-4C35-B688-554EE61DE1CC</key>
 		<dict>
 			<key>xpos</key>
 			<integer>435</integer>
 			<key>ypos</key>
 			<integer>145</integer>
 		</dict>
-		<key>ADA45187-B87B-442D-810A-722562286252</key>
+		<key>105E6B03-7713-4836-8436-7921E9DFA195</key>
+		<dict>
+      <key>xpos</key>
+      <integer>165</integer>
+      <key>ypos</key>
+      <integer>295</integer>
+    </dict>
+		<key>6B52B39A-E134-4AA8-AB99-03DF53B4D897</key>
 		<dict>
 			<key>xpos</key>
 			<integer>440</integer>
