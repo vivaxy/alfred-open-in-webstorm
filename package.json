@@ -1,0 +1,44 @@
+{
+  "name": "alfred-open-in-webstorm",
+  "version": "1.0.0",
+  "description": "Alfred workflow to open in WebStorm",
+  "main": "index.js",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "webstorm",
+    "finder"
+  ],
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "alfy": "^0.10.0",
+    "fast-glob": "^3.0.4"
+  },
+  "scripts": {
+    "release": "standard-version && npm publish --access=public && git push --follow-tags",
+    "postinstall": "alfy-init",
+    "preuninstall": "alfy-cleanup",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "5",
+    "lint-staged": "^10.5.4",
+    "pinst": "^2.1.4",
+    "prettier": "^2.2.1",
+    "standard-version": "^9.1.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,css,less,json,md,html,yml,yaml,pcss,jsx,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
