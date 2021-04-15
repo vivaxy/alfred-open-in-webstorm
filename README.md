@@ -23,8 +23,8 @@ Alfred 4 workflow to open in WebStorm.
 
 ## Usage
 
-- Type `code` with a space to search. Press `enter` to open selected project in WebStorm. Hold `command` and press `enter` to reveal in Finder.
-- Select a file in Finder, type `code` (without space) and press `enter` to open this folder in WebStorm.
+- Type `ws` with a space to search. Press `enter` to open selected project in WebStorm. Hold `command` and press `enter` to reveal in Finder.
+- Select a file in Finder, type `ws` (without space) and press `enter` to open this folder in WebStorm.
 
 ## Related
 
