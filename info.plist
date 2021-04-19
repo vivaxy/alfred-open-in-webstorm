@@ -55,7 +55,7 @@
   tell application "Finder"
     set pathList to (quoted form of POSIX path of (folder of the front window as alias))
   end tell
-  do shell script "open -a \"WebStorm\" " &amp; pathList
+  do shell script "open -na \"WebStorm.app\" --args " &amp; pathList
 end alfred_script</string>
 				<key>cachescript</key>
 				<false/>
@@ -94,7 +94,7 @@ end alfred_script</string>
 				<key>applescript</key>
 				<string>on alfred_script(q)
   tell application "System Events"
-    do shell script "/usr/local/bin/webstorm " & q
+    do shell script "open -na \"WebStorm.app\" --args \"" &amp; q &amp; "\""
   end tell
 end alfred_script</string>
 				<key>cachescript</key>
@@ -143,7 +143,7 @@ end alfred_script</string>
 				<key>subtext</key>
 				<string>Select project</string>
 				<key>title</key>
-				<string>Open Project in webstorm</string>
+				<string>Open Project in WebStorm</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
