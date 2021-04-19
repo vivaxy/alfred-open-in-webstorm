@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/vivaxy/alfred-open-in-webstorm/compare/v1.1.3...v1.1.4) (2021-04-19)
+
+
+### Bug Fixes
+
+* :bug:  always open webstorm in new window ([2c7ca2f](https://github.com/vivaxy/alfred-open-in-webstorm/commit/2c7ca2f130c33a681f1ae38917d9055c04f9d518))
+
 ### [1.1.3](https://github.com/vivaxy/alfred-open-in-webstorm/compare/v1.1.2...v1.1.3) (2021-04-19)
 
 
