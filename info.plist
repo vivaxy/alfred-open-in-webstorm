@@ -93,8 +93,8 @@ end alfred_script</string>
 			<dict>
 				<key>applescript</key>
 				<string>on alfred_script(q)
-  tell application "WebStorm"
-    open q
+  tell application "System Events"
+    do shell script "/usr/local/bin/webstorm " & q
   end tell
 end alfred_script</string>
 				<key>cachescript</key>
