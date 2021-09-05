@@ -5,43 +5,64 @@
 const path = require('path');
 const alfy = require('alfy');
 const glob = require('fast-glob');
-const wds = process.env.wds.split(',');
+
+const PROJECT_CACHE_KEY = 'projects';
+
+/**
+ * wds should not end with slash `/`
+ * e.g. /Users/vivaxy/Developer/*
+ * @type {string}
+ */
+const wds = process.env.wds;
+
+if (!wds) {
+  throw new Error('Please config `wds`');
+}
 
 async function updateProjectsCache() {
+  const parentFolders = wds.includes('*')
+    ? await glob(wds, {
+        cwd: '/',
+        onlyDirectories: true,
+      })
+    : wds.split(',');
+
   const projects = (
     await Promise.all(
-      wds.map(async function (wd) {
+      parentFolders.map(async function (parentFolder) {
         const names = await glob('*', {
-          cwd: wd,
+          cwd: parentFolder,
           onlyDirectories: true,
           dot: true,
         });
         return {
-          wd,
           names,
+          parentFolder,
         };
       }),
     )
-  ).reduce(function (all, wdProject) {
+  ).reduce(function (all, { names, parentFolder }) {
     return [
       ...all,
-      ...wdProject.names.map(function (name) {
+      ...names.map(function (name) {
         return {
           name,
-          wd: wdProject.wd,
+          parentFolder,
         };
       }),
     ];
   }, []);
-  alfy.cache.set('projects', JSON.stringify(projects));
+
+  alfy.cache.set(PROJECT_CACHE_KEY, JSON.stringify(projects));
 }
 
-function getProjects() {
-  const projectsCache = alfy.cache.get('projects');
-  if (projectsCache) {
-    return JSON.parse(projectsCache);
+function getCachedProjects() {
+  try {
+    const outputCache = alfy.cache.get(PROJECT_CACHE_KEY);
+    return JSON.parse(outputCache);
+  } catch (e) {
+    return [];
   }
-  return [];
 }
 
 const searchStrategies = {
@@ -49,12 +70,14 @@ const searchStrategies = {
     function format(v) {
       return v.toLowerCase().replace(/[^a-z0-9]/g, '');
     }
+
     return format(value).startsWith(format(input));
   },
   matchIncludes(value, input) {
     function format(v) {
       return v.toLowerCase().replace(/[^a-z0-9]/g, '');
     }
+
     return format(value).includes(format(input));
   },
   keywordIncludes(value, input) {
@@ -70,40 +93,49 @@ const searchStrategies = {
   },
 };
 
-updateProjectsCache();
-const projects = getProjects();
-const searchResultsByStrategy = [];
-const searchStrategyNames = [
-  'matchFromStart',
-  'matchIncludes',
-  'keywordIncludes',
-];
-
-projects.forEach(function (project) {
-  for (let i = 0; i < searchStrategyNames.length; i++) {
-    const searchStrategy = searchStrategies[searchStrategyNames[i]];
-    if (searchStrategy(project.name, alfy.input)) {
-      searchResultsByStrategy[i] = searchResultsByStrategy[i] || [];
-      searchResultsByStrategy[i].push(project);
-      return;
-    }
+function search(projects, input) {
+  if (input) {
+    const searchResultsByStrategy = [];
+    const searchStrategyNames = [
+      'matchFromStart',
+      'matchIncludes',
+      'keywordIncludes',
+    ];
+    projects.forEach(function (project) {
+      for (let i = 0; i < searchStrategyNames.length; i++) {
+        const searchStrategy = searchStrategies[searchStrategyNames[i]];
+        if (searchStrategy(project.name, alfy.input)) {
+          searchResultsByStrategy[i] = searchResultsByStrategy[i] || [];
+          searchResultsByStrategy[i].push(project);
+          return;
+        }
+      }
+    });
+    return searchResultsByStrategy.reduce(function (all, searchResults) {
+      return [...all, ...searchResults];
+    }, []);
   }
-});
+  return projects;
+}
 
-const items = searchResultsByStrategy.reduce(function (all, searchResults) {
-  return [...all, ...searchResults];
-}, []);
+function main() {
+  const projects = getCachedProjects();
+  const searchResults = search(projects, alfy.input);
 
-const output = items.map(function (project) {
-  const absolutePath = path.join(project.wd, project.name);
-  return {
-    title: project.name,
-    uid: absolutePath,
-    subtitle: absolutePath,
-    arg: absolutePath,
-    autocomplete: project.name,
-    type: 'file',
-  };
-});
+  const output = searchResults.map(function ({ name, parentFolder, score }) {
+    const absolutePath = path.join(parentFolder, name);
+    return {
+      title: name,
+      uid: absolutePath,
+      subtitle: absolutePath,
+      arg: absolutePath,
+      autocomplete: name,
+      type: 'file',
+    };
+  });
 
-alfy.output(output);
+  alfy.output(output, { rerunInterval: 1 });
+  updateProjectsCache();
+}
+
+main();
