@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/vivaxy/alfred-open-in-webstorm/compare/v1.1.4...v1.2.0) (2021-09-05)
+
+
+### Features
+
+* support parent folder glob path; rerun script in 1s ([184ffe1](https://github.com/vivaxy/alfred-open-in-webstorm/commit/184ffe1bacbaecafda701287b87dead23a15d310))
+
+
+### Bug Fixes
+
+* **deps:** update dependency alfy to ^0.11.0 ([e45b9eb](https://github.com/vivaxy/alfred-open-in-webstorm/commit/e45b9eb8cf46527b28b0f37329fbe6ca653c8798))
+
 ### [1.1.4](https://github.com/vivaxy/alfred-open-in-webstorm/compare/v1.1.3...v1.1.4) (2021-04-19)
 
 
