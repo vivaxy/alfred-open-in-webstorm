@@ -40,5 +40,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  }
+  },
+  "packageManager": "npm@8.19.4"
 }
