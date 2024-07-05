@@ -2,69 +2,41 @@
  * @since 2019-08-14 02:43
  * @author vivaxy
  */
-const path = require('path');
-const alfy = require('alfy');
-const glob = require('fast-glob');
+import path from 'node:path';
+import alfy from 'alfy';
+import { getProjectDirectories } from './utils/get-project-directories.js';
 
 const PROJECT_CACHE_KEY = 'projects';
 
-/**
- * wds should not end with slash `/`
- * e.g. /Users/vivaxy/Developer/*
- * @type {string}
- */
-const wds = process.env.wds;
-
-if (!wds) {
-  throw new Error('Please config `wds`');
-}
-
 async function updateProjectsCache() {
-  const parentFolders = wds.includes('*')
-    ? await glob(wds, {
-        cwd: '/',
-        onlyDirectories: true,
-      })
-    : wds.split(',');
-
-  const projects = (
-    await Promise.all(
-      parentFolders.map(async function (parentFolder) {
-        const names = await glob('*', {
-          cwd: parentFolder,
-          onlyDirectories: true,
-          dot: true,
-        });
-        return {
-          names,
-          parentFolder,
-        };
-      }),
-    )
-  ).reduce(function (all, { names, parentFolder }) {
-    return [
-      ...all,
-      ...names.map(function (name) {
-        return {
-          name,
-          parentFolder,
-        };
-      }),
-    ];
-  }, []);
-
+  const projectsDirectories = await getProjectDirectories(process.env.projects);
+  const projects = projectsDirectories.map(function(directory) {
+    return {
+      name: path.basename(directory),
+      absolutePath: directory,
+    };
+  });
   alfy.cache.set(PROJECT_CACHE_KEY, JSON.stringify(projects));
 }
 
-function getCachedProjects() {
-  try {
-    const outputCache = alfy.cache.get(PROJECT_CACHE_KEY);
-    return JSON.parse(outputCache);
-  } catch (e) {
-    return [];
+/**
+ * @returns {Array<{ name: string, absolutePath: string }>}
+ */
+function getProjects() {
+  const projectsCache = /** @type {string} */(alfy.cache.get(PROJECT_CACHE_KEY));
+  if (projectsCache) {
+    return JSON.parse(projectsCache);
   }
+  return [];
 }
 
+/**
+ * @typedef {(value: string, input: string) => boolean} SearchStrategy
+ */
+/**
+ *
+ * @type {{matchFromStart: SearchStrategy, keywordIncludes: SearchStrategy, matchIncludes: SearchStrategy}}
+ */
 const searchStrategies = {
   matchFromStart(value, input) {
     function format(v) {
@@ -84,7 +56,7 @@ const searchStrategies = {
     const keywords = input
       .replace(/[^a-z0-9]/g, ' ')
       .split(' ')
-      .filter(function (v) {
+      .filter(function(v) {
         return !!v;
       });
     return keywords.every((keyword) => {
@@ -93,6 +65,20 @@ const searchStrategies = {
   },
 };
 
+function debug() {
+  alfy.output([
+    {
+      title: 'Debug alfred-open-in-vscode',
+      subtitle: `node.version=${process.version}`,
+    },
+  ]);
+}
+
+/**
+ * @param {Array<{name: string, absolutePath: string}>} projects
+ * @param {string} input
+ * @returns {Array<{name: string, absolutePath: string}>}
+ */
 function search(projects, input) {
   if (input) {
     const searchResultsByStrategy = [];
@@ -119,11 +105,14 @@ function search(projects, input) {
 }
 
 function main() {
-  const projects = getCachedProjects();
+  if (alfy.input === 'DEBUG') {
+    return debug();
+  }
+
+  const projects = getProjects();
   const searchResults = search(projects, alfy.input);
 
-  const output = searchResults.map(function ({ name, parentFolder, score }) {
-    const absolutePath = path.join(parentFolder, name);
+  const output = searchResults.map(function ({ name, absolutePath }) {
     return {
       title: name,
       uid: absolutePath,

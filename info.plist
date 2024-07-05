@@ -12,7 +12,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>6B52B39A-E134-4AA8-AB99-03DF53B4D897</string>
+				<string>A9F17AF7-F2B4-44B3-91D1-8A5D60C98E35</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -23,6 +23,19 @@
 		</array>
 		<key>6B52B39A-E134-4AA8-AB99-03DF53B4D897</key>
 		<array/>
+		<key>A9F17AF7-F2B4-44B3-91D1-8A5D60C98E35</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6B52B39A-E134-4AA8-AB99-03DF53B4D897</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>B24C2639-501E-4FBF-B5AC-9D87A59EF9B5</key>
 		<array>
 			<dict>
@@ -156,6 +169,23 @@ end alfred_script</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>'{query}', {variables}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>A9F17AF7-F2B4-44B3-91D1-8A5D60C98E35</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>https://github.com/vivaxy/alfred-open-in-webstorm/blob/main/README.md</string>
@@ -164,40 +194,62 @@ end alfred_script</string>
 		<key>105E6B03-7713-4836-8436-7921E9DFA195</key>
 		<dict>
 			<key>xpos</key>
-			<integer>165</integer>
+			<real>165</real>
 			<key>ypos</key>
-			<integer>295</integer>
+			<real>295</real>
 		</dict>
 		<key>596A21A4-4D7F-4C35-B688-554EE61DE1CC</key>
 		<dict>
 			<key>xpos</key>
-			<integer>435</integer>
+			<real>435</real>
 			<key>ypos</key>
-			<integer>145</integer>
+			<real>145</real>
 		</dict>
 		<key>6B52B39A-E134-4AA8-AB99-03DF53B4D897</key>
 		<dict>
 			<key>xpos</key>
-			<integer>440</integer>
+			<real>440</real>
 			<key>ypos</key>
-			<integer>295</integer>
+			<real>295</real>
+		</dict>
+		<key>A9F17AF7-F2B4-44B3-91D1-8A5D60C98E35</key>
+		<dict>
+			<key>xpos</key>
+			<real>340</real>
+			<key>ypos</key>
+			<real>325</real>
 		</dict>
 		<key>B24C2639-501E-4FBF-B5AC-9D87A59EF9B5</key>
 		<dict>
 			<key>xpos</key>
-			<integer>165</integer>
+			<real>165</real>
 			<key>ypos</key>
-			<integer>145</integer>
+			<real>145</real>
 		</dict>
 	</dict>
-	<key>variables</key>
-	<dict>
-		<key>wds</key>
-		<string></string>
-	</dict>
-	<key>variablesdontexport</key>
+	<key>userconfigurationconfig</key>
 	<array>
-		<string>wds</string>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>Project directories</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Glob pattern to match project directories</string>
+			<key>label</key>
+			<string></string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>projects</string>
+		</dict>
 	</array>
 	<key>version</key>
 	<string>1.0.0</string>
