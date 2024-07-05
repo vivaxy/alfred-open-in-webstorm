@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/vivaxy/alfred-open-in-webstorm/compare/v1.2.0...v1.3.0) (2024-07-05)
+
+
+### Features
+
+* use User Configuration ([42005d0](https://github.com/vivaxy/alfred-open-in-webstorm/commit/42005d081e594c147c9b2054ea9abf32a265f96b))
+
 ## [1.2.0](https://github.com/vivaxy/alfred-open-in-webstorm/compare/v1.1.4...v1.2.0) (2021-09-05)
 
 
