@@ -68,7 +68,7 @@ const searchStrategies = {
 function debug() {
   alfy.output([
     {
-      title: 'Debug alfred-open-in-vscode',
+      title: 'Debug alfred-open-in-webstorm',
       subtitle: `node.version=${process.version}`,
     },
   ]);
@@ -119,7 +119,7 @@ function main() {
       subtitle: absolutePath,
       arg: absolutePath,
       autocomplete: name,
-      type: 'file',
+      type: /** @type {'file'} */('file'),
     };
   });
 
